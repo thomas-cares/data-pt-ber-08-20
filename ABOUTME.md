@@ -19,5 +19,3 @@ Living and working in Berlin, Germoney
 **2010-2011:** Account Manager at Goldfish Marketing Agency
 
 This is my master branch.
-
-
