@@ -6,11 +6,11 @@ Thomas Spitzer
 ### Profile pic
 [Image](https://www.deutsche-filmakademie.de/app/uploads/dynamic/sites/3/2018/08/Thomas_Spitzer-team-liedel-3zu4-570x760-c-default.jpg)
 
-###From
+### From
 Born in Vienna, Austria
 Living and working in Berlin, Germoney
 
-###Contacts
+### Contacts
 [email](mailto:thomas.spitzer@gmx.at)
 
 ### Experience
