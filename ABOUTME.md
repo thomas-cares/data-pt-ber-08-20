@@ -14,8 +14,8 @@ Living and working in Berlin, Germoney
 [email](mailto:thomas.spitzer@gmx.at)
 
 ### Experience
-** Since 2015: ** Project Manager at German Film Awards \
-** 2011 - 2015: ** Label Manager at Siluh Records \
-** 2010-2011: **Account Manager at Goldfish Marketing Agency
+**Since 2015:** Project Manager at German Film Awards \
+**2011 - 2015:** Label Manager at Siluh Records \
+**2010-2011:**Account Manager at Goldfish Marketing Agency
 
 
