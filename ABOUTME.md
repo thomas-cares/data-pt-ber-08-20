@@ -16,6 +16,6 @@ Living and working in Berlin, Germoney
 ### Experience
 **Since 2015:** Project Manager at German Film Awards \
 **2011 - 2015:** Label Manager at Siluh Records \
-**2010-2011:**Account Manager at Goldfish Marketing Agency
+**2010-2011:** Account Manager at Goldfish Marketing Agency
 
 
