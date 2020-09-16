@@ -19,9 +19,10 @@ SELECT DISTINCT business_segment, SUM(declared_monthly_revenue)  From olist.clos
 
 /*7. From the order_reviews table, find the total number of distinct review score values.*/
 select Count(distinct review_score) from  olist.order_reviews;
-
 /*8. In the order_reviews table, create a new column with a description that corresponds to each number category for each review score from 1 - 5.*/
-
+/* I dont really understand the task so I decided to create a new column and fill it with selected data from another column*/
+select review_comment_title, review_score as Five_Star_Reviews from olist.order_reviews WHERE review_score='5' Limit 10;
 /*9. From the order_reviews table, find the review score occurring most frequently and how many times it occurs.*/
 Select count(review_score), review_score from olist.order_reviews group by review_score order by count(review_score) desc limit 1;
 
+SELECT COUNT(*), declared_monthly_revenue, business_segment FROM closed_deals GROUP BY declared_monthly_revenue, business_segment HAVING COUNT(*) > 1 ORDER BY declared_monthly_revenue DESC LIMIT 3;
