@@ -89,4 +89,62 @@ SELECT
     publications.authors.au_id as author_ID,
 	publications.authors.au_fname as author_firstname, 
 	publications.authors.au_lname as author_lastname,
-    publications.sales.ord_num as sales
+    sum(publications.sales.qty) as Total
+FROM
+	authors
+    Left Join titleauthor
+    on titleauthor.au_id = authors.au_id
+    
+    Left Join sales
+    on titleauthor.title_id = sales.title_id
+GROUP BY 
+	author_id
+ORDER by Total desc limit 3;
+
+/*Challenge 4 - Best Selling Authors Ranking: Now modify your solution in Challenge 3 so that the output will display all 23 authors instead of the top 3. Note that the authors who have sold 0 titles should also appear in your output (ideally display 0 instead of NULL as the TOTAL). Also order your results based on TOTAL from high to low.*/
+
+select * FROM publications.sales;
+
+SELECT 
+    publications.authors.au_id as author_ID,
+	publications.authors.au_fname as author_firstname, 
+	publications.authors.au_lname as author_lastname,
+    COALESCE(sum(publications.sales.qty),0) AS Total
+FROM
+	authors
+    Left Join titleauthor
+    on titleauthor.au_id = authors.au_id
+    
+    Left Join sales
+    on titleauthor.title_id = sales.title_id
+GROUP BY 
+	author_id
+ORDER by Total desc limit 23;
+
+/*Bonus Challenge - Most Profiting Authors*/
+
+SELECT
+	author_id,
+    Lastname,
+    Firstname,
+    ROUND((sum_royalty+sum_advance) * royal_share) AS Profit
+FROM
+(SELECT
+	authors.au_id as author_id,
+    authors.au_lname as Lastname,
+    authors.au_fname as Firstname,
+    sum(titles.royalty) as sum_royalty,
+    sum(titles.advance) as sum_advance,
+    titleauthor.royaltyper as royal_share
+FROM
+	authors
+    LEFT JOIN titleauthor
+    ON authors.au_id = titleauthor.au_id
+    
+    LEFT JOIN titles
+    ON titles.title_id=titleauthor.title_id
+GROUP BY author_id, royal_share
+
+    ) as sumary
+ORDER BY PROFIT desc limit 3;
+	

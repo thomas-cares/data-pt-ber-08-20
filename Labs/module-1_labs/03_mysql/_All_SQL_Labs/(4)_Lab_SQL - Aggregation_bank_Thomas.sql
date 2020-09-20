@@ -32,13 +32,22 @@ FROM bank.trans WHERE account_id = 396 group by transaction_type, account_id ;
 /*8. From the previous result, modify you query so that it returns only one row, with a column for incoming amount, outgoing amount and the difference*/
 SELECT 
 	account_id, 
-	(case type 
-		when 'PRIJEM' then 'INCOMING' 
-        when 'VYDAJ' then 'OUTGOING'
-        end) as transaction_type, 
-	round(sum(amount)) as round_total_amount 
-FROM bank.trans WHERE account_id = 396 group by transaction_type, account_id ;
+    ROUND(sum(IF(type='PRIJEM', amount, 0))) as 'INCOMING',
+    ROUND(sum(IF(type='VYDAJ', amount, 0))) as 'OUTGOING',
+	ROUND(sum(IF(type='PRIJEM', amount, 0))) - ROUND(sum(IF(type='VYDAJ', amount, 0))) as 'DIFFERENCE'
+FROM bank.trans 
+	WHERE account_id = 396 
+    GROUP BY account_id ;
 
 /*9. Continuing with the previous example, rank the top 10 account_ids based on their difference*/
 
-
+SELECT 
+	account_id, 
+    ROUND(sum(IF(type='PRIJEM', amount, 0))) as 'INCOMING',
+    ROUND(sum(IF(type='VYDAJ', amount, 0))) as 'OUTGOING',
+	ROUND(sum(IF(type='PRIJEM', amount, 0))) - ROUND(sum(IF(type='VYDAJ', amount, 0))) as 'DIFFERENCE'
+FROM bank.trans 
+    GROUP BY account_id 
+    ORDER BY DIFFERENCE DESC
+    LIMIT 10
+;
