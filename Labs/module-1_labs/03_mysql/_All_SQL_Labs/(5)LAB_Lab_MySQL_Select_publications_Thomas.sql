@@ -127,7 +127,7 @@ SELECT
 	author_id,
     Lastname,
     Firstname,
-    ROUND((sum_royalty+sum_advance) * royal_share) AS Profit
+    ROUND((sum_royalty+sum_advance) * (royal_share/100)) AS Profit
 FROM
 (SELECT
 	authors.au_id as author_id,
@@ -147,4 +147,3 @@ GROUP BY author_id, royal_share
 
     ) as sumary
 ORDER BY PROFIT desc limit 3;
-	
