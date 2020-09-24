@@ -18,17 +18,27 @@ FROM
     authors.au_lname as lastname ,
     authors.au_fname as firstname,
     count(titleauthor.title_id) as number_of_titles,
-    sum(titles.royalty) * (titleauthor.royaltyper/100) AS royalties_share,
+    sum_book_royalties * percent_factor AS royalties_share,
     titles.advance * (titleauthor.royaltyper/100) AS advance_share
-    FROM
-	authors
+		FROM
+		(
+        SELECT
+        sum(titles.royalty) as sum_book_royalties,
+        titleauthor.royaltyper/100 as percent_factor
+        FROM 
+        titleauthor
+        LEFT JOIN titles
+        ON titles.title_id =titleauthor.title_id
+        ) as calculation_2
+        
     LEFT JOIN titleauthor
     ON titleauthor.au_id = authors.au_id
     LEFT JOIN titles
     ON titles.title_id =titleauthor.title_id
-    ) as calculation
+    ) as calculation_1
     GROUP BY author_id
-;
+    ;
+
 
 /*2 Delete every author which has received total royalties of less than 100.*/
 SELECT * FROM titles, authors, titleauthor;

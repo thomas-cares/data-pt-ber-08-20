@@ -119,3 +119,34 @@ LEFT JOIN publications.sales
 ON publications.sales.stor_id=publications.stores.stor_id
 GROUP BY Store) AS summary /*alias necessary*/
 ;
+
+/*ACTION QUERIES*/
+CREATE TABLE publications.store_sales_summary /*self chosen table name*/
+SELECT stores.stor_name as Store, 
+    count(distinct (ord_num)) AS Orders ,
+    count(sales.title_id) as Items,
+	sum(publications.sales.qty) as Qty
+FROM publications.stores
+LEFT JOIN publications.sales
+ON publications.sales.stor_id=publications.stores.stor_id
+GROUP BY Store;
+
+SELECT * FROM publications.store_sales_summary;
+DELETE FROM publications.store_sales_summary; /*Delete tabe content*/
+DROP TABLE publications.store_sales_summary; /*make entire table disappear*/
+ALTER TABLE publications.store_sales_summary DROP COLUMN Qty; /* delete column and thereby changing table structure*/
+
+/*to populate the table*/
+INSERT INTO publications.store_sales_summary 
+SELECT stores.stor_name as Store, 
+    count(distinct (ord_num)) AS Orders ,
+    count(sales.title_id) as Items,
+	sum(publications.sales.qty) as Qty
+FROM publications.stores
+LEFT JOIN publications.sales
+ON publications.sales.stor_id=publications.stores.stor_id
+GROUP BY Store;
+
+/*change specific table content*/
+UPDATE publications.store_sales_summary
+SET Qty=Qty*2;
